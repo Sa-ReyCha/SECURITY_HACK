@@ -1,0 +1,642 @@
+[
+  {
+    "id": "sales-summary",
+    "category": "Analytics",
+    "template": "Summarize the latest sales report for region {region}."
+  },
+  {
+    "id": "purchase-order-draft",
+    "category": "Procurement",
+    "template": "Generate a purchase order draft for vendor {vendor}."
+  },
+  {
+    "id": "financial-anomaly",
+    "category": "Finance",
+    "template": "Explain the anomaly in the financial forecast for Q{q}."
+  },
+  {
+    "id": "error-translation",
+    "category": "Support",
+    "template": "Translate the following SAP workflow error to plain English: {error}."
+  },
+  {
+    "id": "corrective-action",
+    "category": "Finance",
+    "template": "Create a corrective action plan for overdue invoices in {app}."
+  },
+  {
+    "id": "kpi-underperforming",
+    "category": "Analytics",
+    "template": "What KPIs are underperforming in {app} this quarter?"
+  },
+  {
+    "id": "supplier-evaluation",
+    "category": "Procurement",
+    "template": "Draft a supplier evaluation summary based on recent performance data for {vendor}."
+  },
+  {
+    "id": "rma-root-cause",
+    "category": "Supply Chain",
+    "template": "Identify root causes for the spike in return merchandise authorisations in region {region}."
+  },
+  {
+    "id": "month-end-checklist",
+    "category": "Compliance",
+    "template": "Generate a compliance checklist for {app} month-end close."
+  },
+  {
+    "id": "open-tickets-summary",
+    "category": "Support",
+    "template": "Summarize open support tickets related to {app}."
+  },
+  {
+    "id": "inventory-reorder",
+    "category": "Supply Chain",
+    "template": "Recommend reorder quantities for low-stock items in {region} based on current demand trends."
+  },
+  {
+    "id": "budget-variance",
+    "category": "Finance",
+    "template": "Analyse the budget variance for {app} in Q{q} and suggest cost-reduction measures."
+  },
+  {
+    "id": "vendor-risk",
+    "category": "Procurement",
+    "template": "Assess the risk profile of vendor {vendor} based on delivery performance and quality metrics."
+  },
+  {
+    "id": "employee-onboarding",
+    "category": "HR",
+    "template": "Generate an onboarding checklist for new employees joining {app} in {region}."
+  },
+  {
+    "id": "audit-findings",
+    "category": "Compliance",
+    "template": "Summarise the audit findings for {app} and propose remediation steps."
+  },
+  {
+    "id": "cash-flow-forecast",
+    "category": "Finance",
+    "template": "Forecast cash flow for {app} over the next 90 days using historical data from {region}."
+  },
+  {
+    "id": "contract-renewal",
+    "category": "Procurement",
+    "template": "Draft a contract renewal recommendation for vendor {vendor} expiring this quarter."
+  },
+  {
+    "id": "incident-report",
+    "category": "Support",
+    "template": "Generate an incident report for the outage in {region} affecting {app}."
+  },
+  {
+    "id": "demand-forecast",
+    "category": "Supply Chain",
+    "template": "Provide a demand forecast for {app} products in {region} for the next quarter."
+  },
+  {
+    "id": "regulatory-change",
+    "category": "Compliance",
+    "template": "Explain the impact of the latest regulatory changes on {app} operations in {region}."
+  },
+  {
+    "id": "joule-error-diagnosis",
+    "category": "SAP Joule",
+    "template": "Use SAP Joule to diagnose the root cause of error {error} in {app} and suggest a fix."
+  },
+  {
+    "id": "joule-workflow-summary",
+    "category": "SAP Joule",
+    "template": "Ask SAP Joule to summarise the current status of all open workflows in {app} for {region}."
+  },
+  {
+    "id": "joule-next-best-action",
+    "category": "SAP Joule",
+    "template": "Request SAP Joule to recommend the next best action for the stalled purchase order in {app}."
+  },
+  {
+    "id": "joule-data-lookup",
+    "category": "SAP Joule",
+    "template": "Query SAP Joule for the latest master data record of vendor {vendor} in {app}."
+  },
+  {
+    "id": "joule-report-generation",
+    "category": "SAP Joule",
+    "template": "Instruct SAP Joule to generate a Q{q} performance report for {app} in {region}."
+  },
+  {
+    "id": "joule-approval-request",
+    "category": "SAP Joule",
+    "template": "Have SAP Joule draft an approval request for the budget exception in {app}."
+  },
+  {
+    "id": "joule-anomaly-explanation",
+    "category": "SAP Joule",
+    "template": "Ask SAP Joule to explain the inventory discrepancy detected in {app} for region {region}."
+  },
+  {
+    "id": "joule-process-guidance",
+    "category": "SAP Joule",
+    "template": "Request SAP Joule to walk through the step-by-step process for closing a period in {app}."
+  },
+  {
+    "id": "llm-api-usage-report",
+    "category": "LLM Operations",
+    "template": "Summarise LLM API token consumption for {app} over the past 30 days and highlight cost drivers."
+  },
+  {
+    "id": "llm-prompt-optimisation",
+    "category": "LLM Operations",
+    "template": "Suggest prompt optimisations to reduce token usage for the {app} inference pipeline."
+  },
+  {
+    "id": "llm-model-comparison",
+    "category": "LLM Operations",
+    "template": "Compare the accuracy and latency of available LLM models for the {app} use case in {region}."
+  },
+  {
+    "id": "llm-error-triage",
+    "category": "LLM Operations",
+    "template": "Triage the LLM inference error {error} returned by {app} and recommend a resolution."
+  },
+  {
+    "id": "llm-rag-quality",
+    "category": "LLM Operations",
+    "template": "Evaluate the retrieval quality of the RAG pipeline for {app} and suggest embedding improvements."
+  },
+  {
+    "id": "llm-hallucination-review",
+    "category": "LLM Operations",
+    "template": "Review the flagged LLM responses from {app} for potential hallucinations and propose guardrails."
+  },
+  {
+    "id": "llm-cost-forecast",
+    "category": "LLM Operations",
+    "template": "Forecast LLM inference costs for {app} in Q{q} based on current usage trends in {region}."
+  },
+  {
+    "id": "api-latency-analysis",
+    "category": "API Operations",
+    "template": "Analyse the API latency trend for {app} over the last 7 days and identify bottlenecks."
+  },
+  {
+    "id": "api-error-rate-summary",
+    "category": "API Operations",
+    "template": "Summarise the API error rate for {app} in {region} and classify errors by HTTP status code."
+  },
+  {
+    "id": "api-consumer-onboarding",
+    "category": "API Operations",
+    "template": "Draft an onboarding guide for new API consumers integrating with {app} in {region}."
+  },
+  {
+    "id": "api-deprecation-notice",
+    "category": "API Operations",
+    "template": "Generate a deprecation notice for the legacy endpoint in {app} and suggest migration steps."
+  },
+  {
+    "id": "api-rate-limit-policy",
+    "category": "API Operations",
+    "template": "Recommend a rate-limiting policy for {app} based on current consumer traffic patterns in {region}."
+  },
+  {
+    "id": "api-security-review",
+    "category": "API Operations",
+    "template": "Review the API security posture of {app} and flag any authentication or authorisation gaps."
+  },
+  {
+    "id": "hr-performance-review",
+    "category": "HR",
+    "template": "Draft a performance review summary for the {region} team using data from {app}."
+  },
+  {
+    "id": "hr-attrition-risk",
+    "category": "HR",
+    "template": "Identify employees at high attrition risk in {region} based on {app} engagement data."
+  },
+  {
+    "id": "hr-training-plan",
+    "category": "HR",
+    "template": "Generate a skills development training plan for the {app} team in {region}."
+  },
+  {
+    "id": "supply-chain-disruption",
+    "category": "Supply Chain",
+    "template": "Assess the impact of the supply chain disruption in {region} on {app} fulfilment targets."
+  },
+  {
+    "id": "supply-chain-optimisation",
+    "category": "Supply Chain",
+    "template": "Recommend logistics optimisations for {app} to reduce lead times in {region}."
+  },
+  {
+    "id": "compliance-gap-analysis",
+    "category": "Compliance",
+    "template": "Perform a compliance gap analysis for {app} against the latest {region} data privacy regulations."
+  },
+  {
+    "id": "finance-reconciliation",
+    "category": "Finance",
+    "template": "Identify unreconciled transactions in {app} for Q{q} and suggest resolution steps."
+  },
+  {
+    "id": "analytics-trend-report",
+    "category": "Analytics",
+    "template": "Generate a trend report for {app} usage metrics in {region} over the past 6 months."
+  },
+  {
+    "id": "analytics-executive-summary",
+    "category": "Analytics",
+    "template": "Produce an executive summary of {app} operational performance for Q{q} in {region}."
+  },
+  {
+    "id": "support-escalation-draft",
+    "category": "Support",
+    "template": "Draft an escalation message for the unresolved {error} issue in {app} affecting {region} users."
+  },
+  {
+    "id": "support-kb-article",
+    "category": "Support",
+    "template": "Write a knowledge-base article explaining how to resolve error {error} in {app}."
+  },
+  {
+    "id": "sales-pipeline-review",
+    "category": "Analytics",
+    "template": "Review the sales pipeline for {region} in {app} and identify deals at risk of slipping this quarter."
+  },
+  {
+    "id": "revenue-attribution",
+    "category": "Analytics",
+    "template": "Break down revenue attribution by channel for {app} in {region} for Q{q}."
+  },
+  {
+    "id": "churn-prediction",
+    "category": "Analytics",
+    "template": "Predict customer churn risk for {app} accounts in {region} based on usage patterns."
+  },
+  {
+    "id": "product-adoption-report",
+    "category": "Analytics",
+    "template": "Summarise feature adoption rates for {app} in {region} over the past quarter."
+  },
+  {
+    "id": "cohort-analysis",
+    "category": "Analytics",
+    "template": "Perform a cohort analysis of {app} users in {region} who onboarded in Q{q}."
+  },
+  {
+    "id": "vendor-payment-terms",
+    "category": "Procurement",
+    "template": "Recommend revised payment terms for vendor {vendor} based on their current cash flow profile."
+  },
+  {
+    "id": "rfp-draft",
+    "category": "Procurement",
+    "template": "Draft a request for proposal for the {app} replacement project targeting vendors in {region}."
+  },
+  {
+    "id": "vendor-scorecard",
+    "category": "Procurement",
+    "template": "Generate a vendor scorecard for {vendor} covering quality, delivery, and cost dimensions."
+  },
+  {
+    "id": "spend-analysis",
+    "category": "Procurement",
+    "template": "Analyse procurement spend for {app} in {region} during Q{q} and identify savings opportunities."
+  },
+  {
+    "id": "sole-source-justification",
+    "category": "Procurement",
+    "template": "Write a sole-source justification memo for procuring services from vendor {vendor} for {app}."
+  },
+  {
+    "id": "tax-provision-summary",
+    "category": "Finance",
+    "template": "Summarise the tax provision calculation for {app} in {region} for Q{q}."
+  },
+  {
+    "id": "capex-approval",
+    "category": "Finance",
+    "template": "Draft a capital expenditure approval request for the {app} infrastructure upgrade in {region}."
+  },
+  {
+    "id": "intercompany-reconciliation",
+    "category": "Finance",
+    "template": "Identify and resolve intercompany reconciliation discrepancies in {app} for Q{q}."
+  },
+  {
+    "id": "fx-exposure-report",
+    "category": "Finance",
+    "template": "Report on foreign exchange exposure for {app} transactions in {region} and suggest hedging strategies."
+  },
+  {
+    "id": "cost-centre-analysis",
+    "category": "Finance",
+    "template": "Analyse cost centre spending in {app} for {region} and flag variances exceeding 10% of budget."
+  },
+  {
+    "id": "payroll-discrepancy",
+    "category": "HR",
+    "template": "Investigate the payroll discrepancy flagged in {app} for employees in {region} during Q{q}."
+  },
+  {
+    "id": "headcount-planning",
+    "category": "HR",
+    "template": "Generate a headcount plan for {app} in {region} for the next fiscal year."
+  },
+  {
+    "id": "job-description-draft",
+    "category": "HR",
+    "template": "Draft a job description for an open role in the {app} team based in {region}."
+  },
+  {
+    "id": "compensation-benchmarking",
+    "category": "HR",
+    "template": "Benchmark compensation for {app} roles in {region} against current market data."
+  },
+  {
+    "id": "diversity-report",
+    "category": "HR",
+    "template": "Produce a diversity and inclusion report for {app} headcount in {region} for Q{q}."
+  },
+  {
+    "id": "warehouse-utilisation",
+    "category": "Supply Chain",
+    "template": "Analyse warehouse utilisation rates for {app} in {region} and recommend space optimisations."
+  },
+  {
+    "id": "supplier-lead-time",
+    "category": "Supply Chain",
+    "template": "Evaluate supplier lead time variability for {vendor} and its impact on {app} production schedules."
+  },
+  {
+    "id": "transport-cost-analysis",
+    "category": "Supply Chain",
+    "template": "Break down transportation costs for {app} shipments in {region} and identify reduction opportunities."
+  },
+  {
+    "id": "safety-stock-review",
+    "category": "Supply Chain",
+    "template": "Review safety stock levels for {app} in {region} and adjust based on updated service-level targets."
+  },
+  {
+    "id": "customs-compliance-check",
+    "category": "Supply Chain",
+    "template": "Check customs compliance requirements for {app} imports into {region} and flag any gaps."
+  },
+  {
+    "id": "gdpr-impact-assessment",
+    "category": "Compliance",
+    "template": "Conduct a GDPR impact assessment for the new {app} data processing workflow in {region}."
+  },
+  {
+    "id": "sox-control-review",
+    "category": "Compliance",
+    "template": "Review SOX controls for {app} financial reporting processes and identify deficiencies."
+  },
+  {
+    "id": "policy-exception-request",
+    "category": "Compliance",
+    "template": "Draft a policy exception request for the {app} deployment in {region} that deviates from standard controls."
+  },
+  {
+    "id": "data-retention-review",
+    "category": "Compliance",
+    "template": "Review data retention policies for {app} in {region} and flag records exceeding retention limits."
+  },
+  {
+    "id": "third-party-risk-assessment",
+    "category": "Compliance",
+    "template": "Perform a third-party risk assessment for vendor {vendor} providing services to {app} in {region}."
+  },
+  {
+    "id": "sla-breach-analysis",
+    "category": "Support",
+    "template": "Analyse SLA breaches for {app} support tickets in {region} during Q{q} and identify systemic causes."
+  },
+  {
+    "id": "root-cause-analysis",
+    "category": "Support",
+    "template": "Perform a root cause analysis for the recurring error {error} in {app} and propose a permanent fix."
+  },
+  {
+    "id": "change-request-draft",
+    "category": "Support",
+    "template": "Draft a change request for the proposed configuration update to {app} in {region}."
+  },
+  {
+    "id": "post-incident-review",
+    "category": "Support",
+    "template": "Write a post-incident review for the {error} outage in {app} affecting {region} users."
+  },
+  {
+    "id": "user-access-review",
+    "category": "Support",
+    "template": "Review user access rights in {app} for the {region} team and flag any excessive permissions."
+  },
+  {
+    "id": "joule-contract-extraction",
+    "category": "SAP Joule",
+    "template": "Ask SAP Joule to extract key terms and obligations from the latest contract with vendor {vendor}."
+  },
+  {
+    "id": "joule-compliance-check",
+    "category": "SAP Joule",
+    "template": "Use SAP Joule to verify that the {app} configuration in {region} meets current compliance standards."
+  },
+  {
+    "id": "joule-forecast-adjustment",
+    "category": "SAP Joule",
+    "template": "Instruct SAP Joule to adjust the demand forecast for {app} in {region} based on the latest actuals."
+  },
+  {
+    "id": "joule-budget-reallocation",
+    "category": "SAP Joule",
+    "template": "Have SAP Joule propose a budget reallocation for {app} to cover the Q{q} shortfall in {region}."
+  },
+  {
+    "id": "joule-supplier-match",
+    "category": "SAP Joule",
+    "template": "Ask SAP Joule to match the incoming invoice from vendor {vendor} to the corresponding purchase order in {app}."
+  },
+  {
+    "id": "llm-fine-tune-proposal",
+    "category": "LLM Operations",
+    "template": "Propose a fine-tuning strategy for the {app} LLM use case to improve domain-specific accuracy in {region}."
+  },
+  {
+    "id": "llm-context-window-audit",
+    "category": "LLM Operations",
+    "template": "Audit context window usage for {app} LLM calls and recommend chunking strategies to reduce truncation."
+  },
+  {
+    "id": "llm-guardrail-design",
+    "category": "LLM Operations",
+    "template": "Design output guardrails for the {app} LLM pipeline to prevent policy violations in {region}."
+  },
+  {
+    "id": "llm-latency-optimisation",
+    "category": "LLM Operations",
+    "template": "Identify latency bottlenecks in the {app} LLM inference pipeline and suggest optimisation techniques."
+  },
+  {
+    "id": "llm-ab-test-design",
+    "category": "LLM Operations",
+    "template": "Design an A/B test to compare two prompt strategies for the {app} use case in {region}."
+  },
+  {
+    "id": "llm-embedding-refresh",
+    "category": "LLM Operations",
+    "template": "Recommend a schedule for refreshing embeddings in the {app} vector store based on data change frequency in {region}."
+  },
+  {
+    "id": "api-versioning-strategy",
+    "category": "API Operations",
+    "template": "Recommend an API versioning strategy for {app} to support backward compatibility in {region}."
+  },
+  {
+    "id": "api-throttling-incident",
+    "category": "API Operations",
+    "template": "Investigate the API throttling incident for {app} in {region} and recommend capacity adjustments."
+  },
+  {
+    "id": "api-contract-test",
+    "category": "API Operations",
+    "template": "Generate contract test cases for the {app} API endpoints consumed by {region} integrations."
+  },
+  {
+    "id": "api-observability-review",
+    "category": "API Operations",
+    "template": "Review the observability setup for {app} APIs in {region} and recommend additional metrics and alerts."
+  },
+  {
+    "id": "api-gateway-config",
+    "category": "API Operations",
+    "template": "Draft an API gateway configuration for {app} that enforces authentication and rate limits for {region} consumers."
+  },
+  {
+    "id": "explain-email",
+    "category": "Productivity",
+    "template": "Explain the following email in plain language and highlight any action items: {error}."
+  },
+  {
+    "id": "draft-reply",
+    "category": "Productivity",
+    "template": "Draft a professional reply to the email thread about {app} from the {region} team."
+  },
+  {
+    "id": "resume-task",
+    "category": "Productivity",
+    "template": "I was working on {app} and got interrupted. Summarise where I left off and suggest the next step."
+  },
+  {
+    "id": "summarise-document",
+    "category": "Productivity",
+    "template": "Summarise the key points of the attached document related to {app} in three bullet points."
+  },
+  {
+    "id": "rewrite-clearer",
+    "category": "Productivity",
+    "template": "Rewrite the following message about {app} to be clearer and more concise."
+  },
+  {
+    "id": "meeting-agenda",
+    "category": "Productivity",
+    "template": "Create a meeting agenda for a 30-minute review of {app} status with the {region} team."
+  },
+  {
+    "id": "meeting-notes-summary",
+    "category": "Productivity",
+    "template": "Summarise the meeting notes from the {app} review and list agreed action items."
+  },
+  {
+    "id": "action-items-extract",
+    "category": "Productivity",
+    "template": "Extract all action items from the following discussion about {app} and assign owners where mentioned."
+  },
+  {
+    "id": "status-update-draft",
+    "category": "Productivity",
+    "template": "Draft a weekly status update for the {app} project in {region} suitable for senior stakeholders."
+  },
+  {
+    "id": "explain-jargon",
+    "category": "Productivity",
+    "template": "Explain the technical jargon in the following {app} documentation in simple terms."
+  },
+  {
+    "id": "translate-message",
+    "category": "Productivity",
+    "template": "Translate the following message from the {region} team into English and preserve the original tone."
+  },
+  {
+    "id": "prioritise-tasks",
+    "category": "Productivity",
+    "template": "Given the following list of open tasks for {app}, suggest a priority order based on urgency and impact."
+  },
+  {
+    "id": "decision-summary",
+    "category": "Productivity",
+    "template": "Summarise the decision made in the {app} review meeting and document the rationale."
+  },
+  {
+    "id": "follow-up-reminder",
+    "category": "Productivity",
+    "template": "Draft a polite follow-up reminder to vendor {vendor} regarding the outstanding deliverable for {app}."
+  },
+  {
+    "id": "presentation-outline",
+    "category": "Productivity",
+    "template": "Create a slide outline for a presentation on {app} performance in {region} for Q{q}."
+  },
+  {
+    "id": "explain-error-simple",
+    "category": "Productivity",
+    "template": "Explain what the error {error} means in {app} as if I have no technical background."
+  },
+  {
+    "id": "compare-options",
+    "category": "Productivity",
+    "template": "Compare the two proposed approaches for {app} and recommend the better option with reasoning."
+  },
+  {
+    "id": "brainstorm-ideas",
+    "category": "Productivity",
+    "template": "Brainstorm five ideas to improve user adoption of {app} in {region}."
+  },
+  {
+    "id": "simplify-report",
+    "category": "Productivity",
+    "template": "Simplify the Q{q} {app} report so it can be understood by a non-technical audience in {region}."
+  },
+  {
+    "id": "catch-me-up",
+    "category": "Productivity",
+    "template": "Catch me up on everything that happened in {app} while I was out of office for the past week."
+  },
+  {
+    "id": "write-announcement",
+    "category": "Productivity",
+    "template": "Write an internal announcement for the {app} go-live in {region} scheduled for next week."
+  },
+  {
+    "id": "risk-summary",
+    "category": "Productivity",
+    "template": "Summarise the top three risks for the {app} project in {region} and suggest mitigations."
+  },
+  {
+    "id": "feedback-draft",
+    "category": "Productivity",
+    "template": "Draft constructive feedback for the {app} team in {region} based on Q{q} performance."
+  },
+  {
+    "id": "onboarding-email",
+    "category": "Productivity",
+    "template": "Write a welcome email for a new team member joining the {app} project in {region}."
+  },
+  {
+    "id": "checklist-from-notes",
+    "category": "Productivity",
+    "template": "Convert the following meeting notes about {app} into a structured checklist with due dates."
+  }
+]

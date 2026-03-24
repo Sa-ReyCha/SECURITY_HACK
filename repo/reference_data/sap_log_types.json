@@ -1,0 +1,9 @@
+[
+  {"type": "INFO",     "weight": 40},
+  {"type": "WARNING",  "weight": 20},
+  {"type": "ERROR",    "weight": 10},
+  {"type": "DEBUG",    "weight": 10},
+  {"type": "AUDIT",    "weight": 10},
+  {"type": "PERF",     "weight": 8},
+  {"type": "SECURITY", "weight": 2}
+]

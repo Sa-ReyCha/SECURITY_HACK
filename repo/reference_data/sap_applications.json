@@ -1,0 +1,12 @@
+[
+  {"id": "sap-fiori-launchpad",  "display_name": "SAP Fiori Launchpad"},
+  {"id": "sap-s4hana-sales",     "display_name": "SAP S/4HANA Sales"},
+  {"id": "sap-s4hana-finance",   "display_name": "SAP S/4HANA Finance"},
+  {"id": "sap-successfactors",   "display_name": "SAP SuccessFactors"},
+  {"id": "sap-ariba",            "display_name": "SAP Ariba"},
+  {"id": "sap-concur",           "display_name": "SAP Concur"},
+  {"id": "sap-analytics-cloud",  "display_name": "SAP Analytics Cloud"},
+  {"id": "sap-data-sphere",      "display_name": "SAP Datasphere"},
+  {"id": "sap-btp-cf",           "display_name": "SAP BTP Cloud Foundry"},
+  {"id": "sap-intelligent-rpa",  "display_name": "SAP Intelligent RPA"}
+]

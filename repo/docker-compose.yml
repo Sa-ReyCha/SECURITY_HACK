@@ -1,0 +1,66 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# SAP SOC Log Ingestion API — docker-compose.yml
+#
+# Services:
+#   api        — FastAPI app (built from fast_app/Dockerfile)
+#   cloudflared — Cloudflare Tunnel (exposes :8000 to the internet)
+#
+# Usage:
+#   1. Copy .env.example → .env and fill in TUNNEL_TOKEN
+#   2. docker compose up --build
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+
+
+  # ── Cloudflare Tunnel ───────────────────────────────────────────────────────
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: tunnel
+    # Previously this used a Docker-style health dependency. That caused
+    # false "unhealthy" dependency failures on some platforms (Podman
+    # with the external docker-compose wrapper). Removing the dependency
+    # lets cloudflared start immediately and keep retrying until the API
+    # responds. For strict waiting behaviour, wrap cloudflared with a
+    # script that polls /health before exec'ing it.
+    command: tunnel --no-autoupdate run --url http://api:8000
+    environment:
+      # Paste your tunnel token here or in .env (see DEPLOY.md)
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    networks:
+      - default
+
+
+  # ── FastAPI application ─────────────────────────────────────────────────────
+  api:
+    build:
+      context: ./fast_app
+      dockerfile: Dockerfile
+    container_name: soc_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"        # also reachable on localhost:8000 for local testing
+    volumes:
+      # Persistent data — keeps logs.csv and access_logs.csv on the host Mac.
+      # Bind mount: repo/output/ on the host ↔ /app/output/ in the container.
+      # Files survive container stop/rm/recreate and are directly readable on disk.
+      - ./output:/app/output
+      # api_keys.json — edit on host, picked up on next restart
+      - ./fast_app/api_keys.json:/app/api_keys.json:ro
+      # .env — override any config without rebuilding
+      - ./fast_app/.env:/app/.env:ro
+    environment:
+      # These can also live in fast_app/.env; here as Docker-level overrides
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "python3", "-c",
+             "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+
+networks:
+  default:
+    driver: bridge

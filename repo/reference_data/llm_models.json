@@ -1,0 +1,22 @@
+[
+  {"id": "gpt-4o",                    "provider": "OpenAI",      "cost_per_1k_tokens": 0.005},
+  {"id": "gpt-4o-mini",               "provider": "OpenAI",      "cost_per_1k_tokens": 0.00015},
+  {"id": "gpt-4-turbo",               "provider": "OpenAI",      "cost_per_1k_tokens": 0.010},
+  {"id": "gpt-4",                     "provider": "OpenAI",      "cost_per_1k_tokens": 0.030},
+  {"id": "gpt-3.5-turbo",             "provider": "OpenAI",      "cost_per_1k_tokens": 0.001},
+  {"id": "o1",                        "provider": "OpenAI",      "cost_per_1k_tokens": 0.015},
+  {"id": "o1-mini",                   "provider": "OpenAI",      "cost_per_1k_tokens": 0.003},
+  {"id": "o3-mini",                   "provider": "OpenAI",      "cost_per_1k_tokens": 0.0011},
+  {"id": "claude-3-opus",             "provider": "Anthropic",   "cost_per_1k_tokens": 0.015},
+  {"id": "claude-3-sonnet",           "provider": "Anthropic",   "cost_per_1k_tokens": 0.003},
+  {"id": "claude-3-haiku",            "provider": "Anthropic",   "cost_per_1k_tokens": 0.00025},
+  {"id": "claude-3-5-sonnet",         "provider": "Anthropic",   "cost_per_1k_tokens": 0.003},
+  {"id": "claude-3-5-haiku",          "provider": "Anthropic",   "cost_per_1k_tokens": 0.0008},
+  {"id": "claude-3-7-sonnet",         "provider": "Anthropic",   "cost_per_1k_tokens": 0.003},
+  {"id": "gemini-1.5-pro",            "provider": "Google",      "cost_per_1k_tokens": 0.007},
+  {"id": "gemini-1.5-flash",          "provider": "Google",      "cost_per_1k_tokens": 0.00035},
+  {"id": "gemini-1.5-flash-8b",       "provider": "Google",      "cost_per_1k_tokens": 0.000075},
+  {"id": "gemini-2.0-flash",          "provider": "Google",      "cost_per_1k_tokens": 0.0004},
+  {"id": "gemini-2.0-pro",            "provider": "Google",      "cost_per_1k_tokens": 0.0035},
+  {"id": "mistral-7b-instruct",       "provider": "Mistral",     "cost_per_1k_tokens": 0.00025}
+]

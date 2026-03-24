@@ -1,0 +1,76 @@
+# ── macOS ────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ── Credentials & secrets ────────────────────────────────────────────────────
+# Never commit real .env files (they contain TUNNEL_TOKEN and other secrets)
+.env
+**/.env
+!**/.env.example
+
+# API keys file (contains bearer tokens for all teams)
+**/api_keys.json
+
+# Any generic secrets / key files
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.json
+credentials.json
+
+# ── Cloudflare Tunnel ────────────────────────────────────────────────────────
+# Tunnel config and credential files
+.cloudflared/
+tunnel-config.yml
+*-tunnel.json
+tunnel_token.txt
+
+# ── Output / generated data ──────────────────────────────────────────────────
+output/
+**/output/
+historical_data/
+repo/output/
+repo/fast_app/tests/output/
+
+# ── Python virtualenvs ───────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+# Virtual environment directories (any name)
+.venv/
+venv/
+env/
+.env/
+.env_*/
+*_env/
+pip-wheel-metadata/
+*.egg
+
+# ── Jupyter Notebooks ────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# ── Docker / Podman ──────────────────────────────────────────────────────────
+# Keep compose files but ignore any override files with local secrets
+docker-compose.override.yml
+podman-compose.override.yml
+
+# ── Logs ─────────────────────────────────────────────────────────────────────
+*.log
+logs/
+access_logs.csv
+
+# ── IDE / Editor ─────────────────────────────────────────────────────────────
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~

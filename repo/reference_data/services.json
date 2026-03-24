@@ -1,0 +1,10 @@
+[
+  {"id": "auth-service",         "description": "Authentication and authorization service"},
+  {"id": "api-gateway",          "description": "API gateway and routing"},
+  {"id": "llm-proxy",            "description": "LLM request proxy and rate limiter"},
+  {"id": "data-pipeline",        "description": "Data ingestion and transformation pipeline"},
+  {"id": "notification-service", "description": "Push and email notification dispatcher"},
+  {"id": "scheduler",            "description": "Batch job and cron scheduler"},
+  {"id": "analytics-engine",     "description": "Real-time analytics processing"},
+  {"id": "cache-service",        "description": "Distributed cache layer"}
+]
