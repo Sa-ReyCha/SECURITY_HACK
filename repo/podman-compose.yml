@@ -29,10 +29,9 @@ services:
     ports:
       - "8000:8000"        # also reachable on localhost:8000 for local testing
     volumes:
-      # Persistent data — keeps logs.csv and access_logs.csv on the host Mac.
-      # Bind mount: repo/output/ on the host ↔ /app/output/ in the container.
-      # Files survive container stop/rm/recreate and are directly readable on disk.
-      - ./output:/app/output
+      # Named volume — Podman manages storage; use scripts/extract-logs.sh to pull files out.
+      # logs.csv is pre-loaded into the volume; access_logs.csv is written here at runtime.
+      - soc_api_output:/app/output
       # api_keys.json — edit on host, picked up on next restart
       - ./fast_app/api_keys.json:/app/api_keys.json:ro
       # .env — override any config without rebuilding
@@ -41,12 +40,11 @@ services:
       # These can also live in fast_app/.env; here as Podman-level overrides
       - PYTHONUNBUFFERED=1
     healthcheck:
-      test: ["CMD", "python3", "-c",
-             "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      test: ["CMD-SHELL", "python3 -c \"import http.client; c=http.client.HTTPConnection('127.0.0.1',8000,timeout=4); c.request('GET','/health'); r=c.getresponse(); exit(0 if r.status==200 else 1)\""]
       interval: 30s
       timeout: 5s
       retries: 3
-      start_period: 10s
+      start_period: 60s
 
   # ── Cloudflare Tunnel ───────────────────────────────────────────────────────
   cloudflared:
@@ -66,3 +64,7 @@ services:
 networks:
   default:
     driver: bridge
+
+volumes:
+  soc_api_output:
+    external: true   # created with: podman volume create soc_api_output

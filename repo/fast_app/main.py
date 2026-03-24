@@ -9,6 +9,7 @@ from __future__ import annotations
 import asyncio
 import csv
 import json
+import logging
 import math
 import os
 import time
@@ -24,6 +25,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from config import settings
+
+logger = logging.getLogger(__name__)
 
 # ── data store ────────────────────────────────────────────────────────────────
 _df: pd.DataFrame | None = None
@@ -72,6 +75,16 @@ async def _write_access_log(row: dict[str, Any]) -> None:
         with open(settings.access_log_path, "a", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=_ACCESS_LOG_COLS)
             writer.writerow(row)
+    print(
+        f"[access] team={row.get('team_name', '-')} "
+        f"endpoint={row.get('endpoint', '-')} "
+        f"method={row.get('http_method', '-')} "
+        f"status={row.get('http_status_code', '-')} "
+        f"page={row.get('page') or '-'} "
+        f"records={row.get('records_returned') or '-'} "
+        f"latency_ms={row.get('latency_ms') or '-'}",
+        flush=True,
+    )
 
 
 # ── lifespan ──────────────────────────────────────────────────────────────────
@@ -304,7 +317,7 @@ Contact the technical staff if your token is rejected.
 | Role | Relevant endpoints & fields |
 |---|---|
 | **AI & Data Science** | `/logs/current` → all columns; focus on `sap_function_log_type`, `http_status_code`, `client_ip`, `llm_status` for feature engineering |
-| **Cloud Integration Engineer** | `/health` for probe checks; `/config` to verify batch size before deploying consumers on Cloud Foundry |
+| **Cloud Integration Engineer** | `/health` for liveness probes; `/info` to check batch size and page count before deploying consumers on Cloud Foundry |
 | **Data Architect / Backend** | Ingest `data[]` arrays directly into SAP HANA; use `_id` as primary key and `@timestamp` for time-series partitioning |
 | **Security Analyst** | Filter `sap_function_log_type = SECURITY` and `ERROR`; correlate `client_ip` with `http_status_code` patterns |
 
@@ -332,7 +345,8 @@ Contact the technical staff if your token is rejected.
             "description": (
                 "Operational endpoints. "
                 "`/health` is suitable for Cloud Foundry liveness probes. "
-                "`/config` lets you verify the server-side batch size before sizing your ingestion workers."
+                "`/info` returns the batch size and current-window page count — "
+                "call it before starting your ingestion loop."
             ),
         },
     ],
@@ -363,16 +377,31 @@ class HealthResponse(BaseModel):
     status: str = Field(..., examples=["ok"], description="Always `ok` when the server is up.")
 
 
-class ConfigResponse(BaseModel):
+class InfoResponse(BaseModel):
     batch_size: int = Field(
         ...,
         examples=[500],
-        description="Number of rows returned per page (set via `BATCH_SIZE` env var).",
+        description="Number of rows returned per page.",
     )
-    csv_path: str = Field(
+    window_start: str = Field(
         ...,
-        examples=["../output/logs.csv"],
-        description="Path to the CSV file loaded at startup.",
+        examples=["2026-03-18T12:00:00+00:00"],
+        description="ISO-8601 UTC start of the current 30-minute window (inclusive).",
+    )
+    window_end: str = Field(
+        ...,
+        examples=["2026-03-18T12:30:00+00:00"],
+        description="ISO-8601 UTC end of the current 30-minute window (exclusive).",
+    )
+    total_records: int = Field(
+        ...,
+        examples=[54832],
+        description="Total rows available in the current window.",
+    )
+    total_pages: int = Field(
+        ...,
+        examples=[110],
+        description="Total pages needed to retrieve all records in the current window.",
     )
 
 
@@ -496,39 +525,64 @@ def health() -> HealthResponse:
 
 
 @app.get(
-    "/config",
+    "/info",
     tags=["meta"],
-    summary="Show active server configuration",
-    response_model=ConfigResponse,
+    summary="Current window info — batch size and page count",
+    response_model=InfoResponse,
     responses={
-        200: {"description": "Current server-side configuration."},
+        200: {"description": "Batch size and current-window pagination info."},
         401: {"model": ErrorResponse, "description": "Missing or invalid Bearer token."},
+        503: {"model": ErrorResponse, "description": "Data not loaded yet."},
     },
 )
-async def get_config(
+async def get_info(
     request: Request,
     team: TeamInfo = Depends(verify_token),
-) -> ConfigResponse:
+) -> InfoResponse:
     """
-    Returns the server-side configuration that is **not** controllable per-request:
+    Returns the information your ingestion loop needs **before** fetching pages:
 
-    - **batch_size** – rows returned per page (set via `BATCH_SIZE` env var)
-    - **csv_path** – path to the CSV file loaded at startup
+    - **batch_size** – rows per page (server-configured)
+    - **window_start / window_end** – current UTC 30-minute slot
+    - **total_records** – rows available in this window
+    - **total_pages** – how many `GET /logs/current?page=N` calls you need
+
+    Call this once at the start of each ingestion cycle, then iterate pages 1 → `total_pages`.
     """
+    if _df is None:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Data not loaded yet. Please retry shortly.",
+        )
+
+    t_start = time.perf_counter()
+    now_utc, window_start, window_end = current_half_hour_window()
+
+    mask = (_df["_ts"] >= window_start) & (_df["_ts"] < window_end)
+    total_records = int(mask.sum())
+    total_pages = max(1, math.ceil(total_records / settings.batch_size))
+
     await _write_access_log({
-        "timestamp_utc":   datetime.now(timezone.utc).isoformat(),
-        "team_name":       team.team_name,
-        "api_key_prefix":  team.api_key_prefix,
-        "endpoint":        "/config",
-        "http_method":     request.method,
-        "page":            "",
+        "timestamp_utc":    now_utc.isoformat(),
+        "team_name":        team.team_name,
+        "api_key_prefix":   team.api_key_prefix,
+        "endpoint":         "/info",
+        "http_method":      request.method,
+        "page":             "",
         "http_status_code": 200,
-        "records_returned": "",
-        "window_start":    "",
-        "window_end":      "",
-        "latency_ms":      "",
+        "records_returned": total_records,
+        "window_start":     window_start.isoformat(),
+        "window_end":       window_end.isoformat(),
+        "latency_ms":       round((time.perf_counter() - t_start) * 1000, 2),
     })
-    return ConfigResponse(batch_size=settings.batch_size, csv_path=settings.csv_path)
+
+    return InfoResponse(
+        batch_size=settings.batch_size,
+        window_start=window_start.isoformat(),
+        window_end=window_end.isoformat(),
+        total_records=total_records,
+        total_pages=total_pages,
+    )
 
 
 @app.get(
@@ -571,7 +625,7 @@ async def get_current_logs(
 
     1. Call `GET /logs/current` (no `page` param) → inspect `total_pages` in the response.
     2. Iterate `?page=1` … `?page=N` to retrieve all batches.
-    3. Page size is fixed server-side (`BATCH_SIZE`); use `GET /config` to check the current value.
+    3. Page size is fixed server-side (`BATCH_SIZE` = 500). Call `GET /info` to get `total_pages` before starting your loop.
 
     ### Null patterns in the data
 

@@ -24,4 +24,4 @@ EXPOSE 8000
 # Use 2 workers; for a hackathon 1 is fine too. --no-access-log keeps stdout clean
 # since we write our own access log to CSV.
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", \
-     "--workers", "1", "--no-access-log"]
+     "--workers", "1"]
