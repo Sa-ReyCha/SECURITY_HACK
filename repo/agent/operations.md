@@ -110,11 +110,32 @@ podman inspect soc_api --format '{{json .State.Health}}' | python3 -m json.tool 
 
 ## Diagnose 503 on public URL
 
-1. Check if container is up: `podman ps`
-2. Check if API responds locally: `curl http://localhost:8000/health`
-3. Check tunnel logs: `podman logs tunnel 2>&1 | grep -E "ERR|Response" | tail -10`
-4. If tunnel shows `connection refused` → restart tunnel: `podman restart tunnel`
-5. If API returns 503 locally → data still loading, wait 15s and retry
+**Step 1 — Identify where the 503 is coming from:**
+```bash
+curl -sv "https://soc-api.840127.xyz/health" 2>&1 | grep "< HTTP\|< server\|< cf-ray"
+```
+- `server: cloudflare` + empty body → tunnel/CF issue (go to step 2)
+- `server: uvicorn` + JSON body → API issue (data still loading, wait 15s)
+
+**Step 2 — Check local API:**
+```bash
+curl http://localhost:8000/health   # should be 200
+```
+
+**Step 3 — Check tunnel logs for errors:**
+```bash
+podman logs tunnel 2>&1 | grep -E "ERR|refused|failed" | grep -v "ping_group\|buffer"
+```
+- Errors present → `podman restart tunnel`
+- No errors → Cloudflare propagation lag, wait 2–5 min then retry
+
+**Step 4 — If still 503 after 5 min, restart tunnel:**
+```bash
+podman restart tunnel
+until curl -sf https://soc-api.840127.xyz/health; do echo "waiting..."; sleep 10; done && echo "UP"
+```
+
+See `known_issues.md` Issue #8 for full diagnosis details.
 
 ## Auto-restart on boot
 

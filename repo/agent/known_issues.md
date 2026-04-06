@@ -110,3 +110,64 @@ Then replaced `logger.info()` with `print(..., flush=True)` anyway (see issue #1
 **Symptom:** Teams could call `/config` to see `csv_path` and `batch_size`.
 
 **Decision:** Replaced `/config` with `/info` — a public-facing endpoint that returns useful pagination metadata (batch_size, window_start, window_end, total_records, total_pages) without exposing internal file paths.
+
+---
+
+## 8. Public URL returns 503 — tunnel stale IP / Cloudflare propagation lag
+
+**Observed:** 2026-03-27. Recurrent pattern after container restarts.
+
+**Symptom:** `https://soc-api.840127.xyz/health` returns HTTP 503 with an **empty body**. Local `http://localhost:8000/health` returns 200. Tunnel logs show 4 registered Cloudflare connections with no errors.
+
+**How to distinguish from other 503s:**
+
+| Source | Body | `server` header |
+|---|---|---|
+| FastAPI (data loading) | `{"detail":"..."}` JSON | `uvicorn` |
+| Cloudflare (tunnel issue) | **empty** | `cloudflare` |
+
+Confirm with:
+```bash
+curl -sv "https://soc-api.840127.xyz/health" 2>&1 | grep "< HTTP\|< server\|< cf-ray"
+# If you see "server: cloudflare" + empty body → tunnel issue, not API issue
+```
+
+**Root cause — two variants:**
+
+**Variant A — Stale IP cache (most common after `compose up --build`):**
+When `soc_api` is recreated it gets a new internal IP. The `tunnel` container resolved `api` at its own startup and cached that IP. After the API container is rebuilt, the tunnel still points to the old (now dead) IP → every proxied request fails → Cloudflare returns 503.
+
+**Variant B — Cloudflare edge propagation lag (after any tunnel restart):**
+After `podman restart tunnel`, cloudflared registers a new Connector ID with Cloudflare's edge. Cloudflare takes 2–5 minutes to propagate routing to the new connector. During that window, edge nodes return 503 even though the tunnel shows 4 registered connections.
+
+**Diagnosis checklist:**
+```bash
+# 1. Is the API healthy locally?
+curl http://localhost:8000/health
+# → 200: API is fine, problem is tunnel/CF
+
+# 2. Is DNS resolving correctly inside the stack?
+podman exec soc_api python3 -c "import socket; print(socket.gethostbyname('api'))"
+# → Should match: podman inspect soc_api --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
+
+# 3. Check tunnel logs for connection errors
+podman logs tunnel 2>&1 | grep -E "ERR|refused|failed" | grep -v "ping_group\|buffer"
+# → Clean (no errors): Variant B — wait 2-5 min
+# → "connection refused": Variant A — restart tunnel immediately
+```
+
+**Fix:**
+```bash
+podman restart tunnel
+# Wait ~2 minutes for Cloudflare propagation, then verify:
+until curl -sf https://soc-api.840127.xyz/health; do echo "waiting..."; sleep 10; done && echo "UP"
+```
+
+**After `compose up --build`, always run:**
+```bash
+cd repo
+podman compose -f podman-compose.yml up --build -d
+podman restart tunnel   # REQUIRED — clears stale IP cache
+```
+
+**Lesson:** A 503 with empty body + `server: cloudflare` header always means the tunnel can't reach the backend OR Cloudflare hasn't propagated the new connector yet. The fix in both cases is `podman restart tunnel` + wait 2 min. Never waste time debugging the FastAPI app when you see an empty 503 body.

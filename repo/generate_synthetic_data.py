@@ -33,12 +33,12 @@ from datetime import datetime, timedelta, timezone
 
 # ── general ───────────────────────────────────────────────────────────────────
 SEED       = 42
-N_ROWS     = 1_220_600          # total rows in the output CSV
+N_ROWS     = 1_600_400          # total rows in the output CSV
 PCT_SYSTEM = 0.60           # fraction that are System logs (rest are LLM)
-START_DATE = datetime(2026, 3,  23,  0,  0,  0, tzinfo=timezone.utc)  # (year, month, day, hour, minute, second)
-END_DATE   = datetime(2026, 3, 28, 0, 0, 0, tzinfo=timezone.utc)  
+START_DATE = datetime(2026, 4,  4,  0,  0,  0, tzinfo=timezone.utc)  # (year, month, day, hour, minute, second)
+END_DATE   = datetime(2026, 4, 11, 0, 0, 0, tzinfo=timezone.utc)  
                 # (year, month, day, hour, minute, second)
-# Resolve paths relative to this script's location so it can be run from any directory
+# Resolve paths relative to this∫ script's location so it can be run from any directory
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_DIR = os.path.join(_SCRIPT_DIR, "output")
 REF_DIR    = os.path.join(_SCRIPT_DIR, "reference_data")
@@ -53,8 +53,8 @@ SYS_LOG_TYPE_WEIGHTS = {
     "ERROR":    15,
     "DEBUG":    10,
     "AUDIT":    10,
-    "PERF":      5,
-    "SECURITY":  8,
+    "PERF":      10,
+    "SECURITY":  3,
 }
 
 # ── LLM log-type weights ──────────────────────────────────────────────────────
