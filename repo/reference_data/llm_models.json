@@ -18,5 +18,14 @@
   {"id": "gemini-1.5-flash-8b",       "provider": "Google",      "cost_per_1k_tokens": 0.000075},
   {"id": "gemini-2.0-flash",          "provider": "Google",      "cost_per_1k_tokens": 0.0004},
   {"id": "gemini-2.0-pro",            "provider": "Google",      "cost_per_1k_tokens": 0.0035},
-  {"id": "mistral-7b-instruct",       "provider": "Mistral",     "cost_per_1k_tokens": 0.00025}
+  {"id": "mistral-7b-instruct",       "provider": "Mistral",     "cost_per_1k_tokens": 0.00025},
+  {"id": "gpt-5.4",                   "provider": "OpenAI",      "released": "2026-03-05"},
+  {"id": "gpt-5.4-pro",               "provider": "OpenAI",      "released": "2026-03-05"},
+  {"id": "claude-opus-4.6",           "provider": "Anthropic",   "released": "2026-03-2026"},
+  {"id": "claude-sonnet-4.6",         "provider": "Anthropic",   "released": "2026-03-2026"},
+  {"id": "gemini-3.1-pro",            "provider": "Google",      "released": "2026-02-2026"},
+  {"id": "gemini-3.1-flash-lite",     "provider": "Google",      "released": "2026-03-2026"},
+  {"id": "grok-4.20-b2",              "provider": "xAI",         "released": "2026-03-03"},
+  {"id": "nemotron-3-super",          "provider": "NVIDIA",      "released": "2026-03-2026"},
+  {"id": "mistral-small-4",           "provider": "Mistral",     "released": "2026-03-03"}
 ]

@@ -638,5 +638,200 @@
     "id": "checklist-from-notes",
     "category": "Productivity",
     "template": "Convert the following meeting notes about {app} into a structured checklist with due dates."
+  },
+  {
+    "id": "llm-token-budget-alert",
+    "category": "LLM Operations",
+    "template": "Alert triggered: {app} has exceeded 80% of its monthly LLM token budget in {region}. Summarise usage and recommend immediate actions."
+  },
+  {
+    "id": "llm-model-deprecation-plan",
+    "category": "LLM Operations",
+    "template": "The LLM model currently used by {app} is being deprecated. Draft a migration plan to a supported model for {region} workloads."
+  },
+  {
+    "id": "llm-prompt-injection-audit",
+    "category": "LLM Operations",
+    "template": "Audit the {app} prompt templates for potential injection vulnerabilities and recommend sanitisation measures."
+  },
+  {
+    "id": "llm-response-quality-report",
+    "category": "LLM Operations",
+    "template": "Generate a response quality report for the {app} LLM pipeline in {region} covering accuracy, relevance, and tone metrics."
+  },
+  {
+    "id": "llm-system-prompt-review",
+    "category": "LLM Operations",
+    "template": "Review the system prompt used by {app} and suggest improvements to reduce ambiguous or off-topic responses."
+  },
+  {
+    "id": "api-health-dashboard",
+    "category": "API Operations",
+    "template": "Generate a health dashboard summary for {app} APIs in {region} covering uptime, error rates, and p99 latency for the past 24 hours."
+  },
+  {
+    "id": "api-breaking-change-notice",
+    "category": "API Operations",
+    "template": "Draft a breaking-change notice for the upcoming {app} API update and list affected consumers in {region}."
+  },
+  {
+    "id": "api-mock-server-spec",
+    "category": "API Operations",
+    "template": "Generate a mock server specification for the {app} API so {region} teams can develop against it without hitting production."
+  },
+  {
+    "id": "api-retry-policy-review",
+    "category": "API Operations",
+    "template": "Review the retry and back-off policy for {app} API clients in {region} and recommend adjustments to reduce cascading failures."
+  },
+  {
+    "id": "joule-invoice-dispute",
+    "category": "SAP Joule",
+    "template": "Ask SAP Joule to draft a dispute resolution message for the incorrect invoice received from vendor {vendor} in {app}."
+  },
+  {
+    "id": "joule-headcount-query",
+    "category": "SAP Joule",
+    "template": "Query SAP Joule for the current headcount breakdown by department in {app} for {region}."
+  },
+  {
+    "id": "joule-risk-flag",
+    "category": "SAP Joule",
+    "template": "Ask SAP Joule to flag any high-risk transactions processed in {app} during the last 48 hours in {region}."
+  },
+  {
+    "id": "joule-policy-lookup",
+    "category": "SAP Joule",
+    "template": "Use SAP Joule to retrieve the current travel and expense policy applicable to employees in {region} using {app}."
+  },
+  {
+    "id": "joule-period-close-status",
+    "category": "SAP Joule",
+    "template": "Ask SAP Joule for the current period-close status in {app} for {region} and list any blocking items."
+  },
+  {
+    "id": "finance-write-off-request",
+    "category": "Finance",
+    "template": "Draft a write-off request for uncollectable receivables in {app} for {region} totalling the Q{q} outstanding balance."
+  },
+  {
+    "id": "finance-audit-trail",
+    "category": "Finance",
+    "template": "Generate an audit trail report for all journal entries posted in {app} during Q{q} in {region}."
+  },
+  {
+    "id": "finance-scenario-analysis",
+    "category": "Finance",
+    "template": "Run a scenario analysis for {app} revenue in {region} under optimistic, base, and pessimistic assumptions for Q{q}."
+  },
+  {
+    "id": "procurement-savings-tracker",
+    "category": "Procurement",
+    "template": "Update the procurement savings tracker for {app} in {region} with Q{q} actuals and compare against targets."
+  },
+  {
+    "id": "procurement-catalog-review",
+    "category": "Procurement",
+    "template": "Review the approved product catalog in {app} for {region} and flag items with pricing anomalies or expired contracts."
+  },
+  {
+    "id": "procurement-emergency-po",
+    "category": "Procurement",
+    "template": "Draft an emergency purchase order justification for critical supplies needed by {app} in {region} within 24 hours."
+  },
+  {
+    "id": "hr-succession-plan",
+    "category": "HR",
+    "template": "Generate a succession planning summary for key roles in {app} within {region} and identify internal candidates."
+  },
+  {
+    "id": "hr-leave-analysis",
+    "category": "HR",
+    "template": "Analyse leave utilisation patterns for the {app} team in {region} during Q{q} and flag any compliance concerns."
+  },
+  {
+    "id": "hr-exit-interview-summary",
+    "category": "HR",
+    "template": "Summarise exit interview themes for employees who left {app} in {region} during Q{q} and suggest retention actions."
+  },
+  {
+    "id": "supply-chain-carbon-footprint",
+    "category": "Supply Chain",
+    "template": "Estimate the carbon footprint of {app} logistics operations in {region} for Q{q} and suggest reduction initiatives."
+  },
+  {
+    "id": "supply-chain-supplier-diversity",
+    "category": "Supply Chain",
+    "template": "Report on supplier diversity metrics for {app} in {region} and recommend strategies to broaden the vendor base."
+  },
+  {
+    "id": "supply-chain-shortage-alert",
+    "category": "Supply Chain",
+    "template": "A critical component shortage has been flagged for {app} in {region}. Draft an escalation plan and identify alternative suppliers."
+  },
+  {
+    "id": "compliance-whistleblower-summary",
+    "category": "Compliance",
+    "template": "Summarise the whistleblower reports received for {app} in {region} during Q{q} and outline required follow-up actions."
+  },
+  {
+    "id": "compliance-training-gap",
+    "category": "Compliance",
+    "template": "Identify compliance training gaps for the {app} team in {region} and recommend a remediation schedule."
+  },
+  {
+    "id": "compliance-vendor-due-diligence",
+    "category": "Compliance",
+    "template": "Perform due diligence on vendor {vendor} before onboarding them to {app} in {region}, covering financial stability and regulatory standing."
+  },
+  {
+    "id": "analytics-ab-test-results",
+    "category": "Analytics",
+    "template": "Interpret the A/B test results for the {app} feature rollout in {region} and recommend whether to proceed with full deployment."
+  },
+  {
+    "id": "analytics-funnel-analysis",
+    "category": "Analytics",
+    "template": "Analyse the user conversion funnel for {app} in {region} and identify the step with the highest drop-off rate."
+  },
+  {
+    "id": "analytics-anomaly-detection",
+    "category": "Analytics",
+    "template": "Detect statistical anomalies in {app} usage data for {region} during Q{q} and provide likely explanations."
+  },
+  {
+    "id": "support-runbook-draft",
+    "category": "Support",
+    "template": "Draft an operational runbook for handling error {error} in {app} so on-call engineers in {region} can resolve it independently."
+  },
+  {
+    "id": "support-capacity-forecast",
+    "category": "Support",
+    "template": "Forecast support ticket volume for {app} in {region} for the next quarter based on historical trends."
+  },
+  {
+    "id": "productivity-okr-draft",
+    "category": "Productivity",
+    "template": "Draft OKRs for the {app} team in {region} for Q{q} aligned to the company's strategic priorities."
+  },
+  {
+    "id": "productivity-retrospective",
+    "category": "Productivity",
+    "template": "Facilitate a retrospective for the {app} team in {region}: summarise what went well, what didn't, and key actions for next quarter."
+  },
+  {
+    "id": "productivity-project-charter",
+    "category": "Productivity",
+    "template": "Draft a project charter for the {app} initiative in {region} including scope, objectives, stakeholders, and success criteria."
+  },
+  {
+    "id": "productivity-stakeholder-map",
+    "category": "Productivity",
+    "template": "Create a stakeholder map for the {app} rollout in {region} and classify each stakeholder by influence and interest."
+  },
+  {
+    "id": "productivity-lessons-learned",
+    "category": "Productivity",
+    "template": "Document lessons learned from the {app} Q{q} delivery in {region} and recommend process improvements for next cycle."
   }
 ]
