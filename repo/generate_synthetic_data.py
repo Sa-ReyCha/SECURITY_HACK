@@ -474,7 +474,7 @@ def main():
     # Shuffle so system and LLM rows are interleaved
     random.shuffle(rows)
 
-    out_path = os.path.join(OUTPUT_DIR, "logs.csv")
+    out_path = os.path.join(OUTPUT_DIR, "new_logs.csv")
     with open(out_path, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=COLUMNS)
         writer.writeheader()
