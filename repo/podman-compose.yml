@@ -46,7 +46,7 @@ services:
       retries: 3
       start_period: 60s
 
-  # ── Cloudflare Tunnel ───────────────────────────────────────────────────────
+  # ── Cloudflare Tunnel (primary) ─────────────────────────────────────────────
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: tunnel
@@ -58,6 +58,50 @@ services:
     environment:
       # Paste your tunnel token here or in .env (see DEPLOY.md)
       - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    networks:
+      - default
+
+  # ── Cloudflare Tunnel (secondary) ───────────────────────────────────────────
+  cloudflared2:
+    image: cloudflare/cloudflared:latest
+    container_name: tunnel2
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --url http://api:8000
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN_2}
+    networks:
+      - default
+
+  # ── Cloudflare Tunnel (3) ────────────────────────────────────────────────────
+  cloudflared3:
+    image: cloudflare/cloudflared:latest
+    container_name: tunnel3
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --url http://api:8000
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN_3}
+    networks:
+      - default
+
+  # ── Cloudflare Tunnel (4) ────────────────────────────────────────────────────
+  cloudflared4:
+    image: cloudflare/cloudflared:latest
+    container_name: tunnel4
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --url http://api:8000
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN_4}
+    networks:
+      - default
+
+  # ── Cloudflare Tunnel (5) ────────────────────────────────────────────────────
+  cloudflared5:
+    image: cloudflare/cloudflared:latest
+    container_name: tunnel5
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --url http://api:8000
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN_5}
     networks:
       - default
 
