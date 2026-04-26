@@ -46,22 +46,21 @@ services:
       retries: 3
       start_period: 60s
 
-  # ── Cloudflare Tunnel (primary) ─────────────────────────────────────────────
-  cloudflared:
+  # ── Cloudflare Tunnel 1 (primary) ───────────────────────────────────────────
+  cloudflared1:
     image: cloudflare/cloudflared:latest
-    container_name: tunnel
+    container_name: tunnel1
     restart: unless-stopped
     # No depende del estado "healthy" del API porque podman-compose, al usar
     # docker-compose externamente, puede marcar falsos negativos. El túnel
     # se iniciará y seguirá reintentando hasta que el backend responda.
     command: tunnel --no-autoupdate run --url http://api:8000
     environment:
-      # Paste your tunnel token here or in .env (see DEPLOY.md)
-      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN_1}
     networks:
       - default
 
-  # ── Cloudflare Tunnel (secondary) ───────────────────────────────────────────
+  # ── Cloudflare Tunnel 2 ──────────────────────────────────────────────────────
   cloudflared2:
     image: cloudflare/cloudflared:latest
     container_name: tunnel2
@@ -72,7 +71,7 @@ services:
     networks:
       - default
 
-  # ── Cloudflare Tunnel (3) ────────────────────────────────────────────────────
+  # ── Cloudflare Tunnel 3 ──────────────────────────────────────────────────────
   cloudflared3:
     image: cloudflare/cloudflared:latest
     container_name: tunnel3
@@ -83,7 +82,7 @@ services:
     networks:
       - default
 
-  # ── Cloudflare Tunnel (4) ────────────────────────────────────────────────────
+  # ── Cloudflare Tunnel 4 ──────────────────────────────────────────────────────
   cloudflared4:
     image: cloudflare/cloudflared:latest
     container_name: tunnel4
@@ -94,7 +93,7 @@ services:
     networks:
       - default
 
-  # ── Cloudflare Tunnel (5) ────────────────────────────────────────────────────
+  # ── Cloudflare Tunnel 5 ──────────────────────────────────────────────────────
   cloudflared5:
     image: cloudflare/cloudflared:latest
     container_name: tunnel5

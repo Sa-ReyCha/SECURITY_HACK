@@ -25,6 +25,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from config import settings
+from utils.opensearch.client import index_access_log
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +71,11 @@ def _init_access_log() -> None:
 
 
 async def _write_access_log(row: dict[str, Any]) -> None:
-    """Append one row to the access-log CSV, serialised via asyncio.Lock."""
+    """Append one row to the access-log CSV, serialised via asyncio.Lock.
+
+    Also fires a background task to index the row into OpenSearch (if configured).
+    The OpenSearch task is fire-and-forget — it never blocks the HTTP response.
+    """
     async with _access_log_lock:  # type: ignore[union-attr]
         with open(settings.access_log_path, "a", newline="", encoding="utf-8") as f:
             writer = csv.DictWriter(f, fieldnames=_ACCESS_LOG_COLS)
@@ -85,6 +90,10 @@ async def _write_access_log(row: dict[str, Any]) -> None:
         f"latency_ms={row.get('latency_ms') or '-'}",
         flush=True,
     )
+    # Fire-and-forget: index into OpenSearch without blocking the response.
+    # On failure the client retries with exponential back-off and writes to
+    # the fallback CSV if all retries are exhausted.
+    asyncio.create_task(index_access_log(row))
 
 
 # ── lifespan ──────────────────────────────────────────────────────────────────

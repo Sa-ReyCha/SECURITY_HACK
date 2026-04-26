@@ -3,10 +3,19 @@ config.py
 ---------
 All tunable API settings loaded from environment variables (or .env file).
 
-BATCH_SIZE       – rows returned per page (server-side, not per-call)
-API_KEYS_PATH    – JSON file mapping bearer-token → team name
-ACCESS_LOG_PATH  – CSV file where every authenticated request is appended
-CSV_PATH         – path to the logs CSV (relative to fast_app/ or absolute)
+BATCH_SIZE                  – rows returned per page (server-side, not per-call)
+API_KEYS_PATH               – JSON file mapping bearer-token → team name
+ACCESS_LOG_PATH             – CSV file where every authenticated request is appended
+CSV_PATH                    – path to the logs CSV (relative to fast_app/ or absolute)
+
+OpenSearch settings (all optional — leave OPENSEARCH_HOST empty to disable):
+OPENSEARCH_HOST             – full URL, e.g. https://opensearch.993212.xyz
+OPENSEARCH_USER             – HTTP basic-auth username
+OPENSEARCH_PASSWORD         – HTTP basic-auth password
+OPENSEARCH_INDEX            – index name to write access-log documents into
+OPENSEARCH_MAX_RETRIES      – how many times to retry a failed index call
+OPENSEARCH_RETRY_DELAY_S    – base delay (seconds) for exponential back-off
+OPENSEARCH_FALLBACK_CSV     – CSV written when all retries are exhausted
 """
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -34,6 +43,24 @@ class Settings(BaseSettings):
 
     # Path to the logs CSV produced by generate_synthetic_data.py
     csv_path: str = "output/logs.csv"
+
+    # ── OpenSearch integration (leave opensearch_host="" to disable) ───────────
+    # Full URL of the OpenSearch endpoint, e.g. https://opensearch.993212.xyz
+    opensearch_host: str = ""
+
+    # HTTP basic-auth credentials
+    opensearch_user: str = ""
+    opensearch_password: str = ""
+
+    # Index name where access-log documents are written
+    opensearch_index: str = "access_logs"
+
+    # Retry policy for failed index calls
+    opensearch_max_retries: int = 3
+    opensearch_retry_delay_s: float = 1.0
+
+    # Fallback CSV — written when all retries are exhausted
+    opensearch_fallback_csv: str = "output/opensearch_failed.csv"
 
     model_config = SettingsConfigDict(
         env_file=".env",

@@ -11,7 +11,7 @@ dataset has realistic null patterns depending on sap_function_log_type:
     • LLM-specific cols  (llm_model_id … llm_stream)  → null
     • sap_llm_response_size / sap_llm_response_time    → null
 
-  LLM log types     → LLM_REQUEST | LLM_ERROR | LLM_TIMEOUT
+  LLM log types     → sLLM_REQUEST | LLM_ERROR | LLM_TIMEOUT
     • All LLM cols fully populated
     • service_id / http_status_code / client_ip        → null
     • sap_llm_response_size / sap_llm_response_time    → populated
@@ -33,10 +33,10 @@ from datetime import datetime, timedelta, timezone
 
 # ── general ───────────────────────────────────────────────────────────────────
 SEED       = 42
-N_ROWS     = 1_931_412          # total rows in the output CSV
-PCT_SYSTEM = 0.60           # fraction that are System logs (rest are LLM)
-START_DATE = datetime(2026, 4,  11,  0,  0,  0, tzinfo=timezone.utc)  # (year, month, day, hour, minute, second)
-END_DATE   = datetime(2026, 4, 18, 0, 0, 0, tzinfo=timezone.utc)  
+N_ROWS     = 673_031          # total rows in the output CSV
+PCT_SYSTEM = 0.50           # fraction that are System logs (rest are LLM)
+START_DATE = datetime(2026, 4,  29,  0,  0,  0, tzinfo=timezone.utc)  # (year, month, day, hour, minute, second)
+END_DATE   = datetime(2026, 4, 30, 0, 0, 0, tzinfo=timezone.utc)  
                 # (year, month, day, hour, minute, second)
 # Resolve paths relative to this∫ script's location so it can be run from any directory
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
